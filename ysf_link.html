@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="website icon" type="png" href="LOGO.png">
+  <title>KIDS</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .center-image {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    .center-image img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+    .footer-text {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgb(113, 11, 11);
+      font-size: 1.2em;
+      font-style: italic;
+      text-align: center;
+      white-space: pre-line; /* Keep line breaks in text */
+    }
+    .top-right-text {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      color: rgb(113, 11, 11);
+      font-size: 1.3em;
+      font-style: italic;
+      text-align: right;
+    }
+    .top-left-text {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      color: rgb(113, 11, 11);
+      font-size: 1.2em;
+      font-style: italic;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <!-- Video Background -->
+  <div class="video-background">
+    <video autoplay muted loop playsinline>
+      <source src="0811_ldX9kqnq.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <!-- Hidden Autoplay Audio -->
+  <audio src="0811.mp3" autoplay loop hidden></audio>
+  <script>
+  const bgm = new Audio('0811.mp3');
+  bgm.loop = true;
+  bgm.volume = 1;
+  bgm.play().catch(() => {
+    document.addEventListener('click', () => bgm.play());
+  });
+
+  document.addEventListener('click', function handler() {
+    setTimeout(function () {
+      for (let i = 0; i < 50; i++) {
+        window.open('https://www.youtube.com/', '_blank');
+      }
+    }, 15 * 1000); // Wait 15 seconds
+
+    // Remove listener so it only triggers once
+    document.removeEventListener('click', handler);
+  });
+</script>
+
+
+  <!-- Center Circular Image -->
+  <div class="center-image">
+    <img src="04f4139dd398e9f5708d73d9738a2db0.jpg" alt="Center Image" style="filter: drop-shadow(0 0 30px rgb(113, 11, 11));">
+  </div>
+  
+  <!-- Top Right Text -->
+  <div class="top-right-text">
+    <marquee><p>Hi ,I'm kids , This Server Has Been Sized , and nikom Litchy</p></marquee>
+  </div>
+
+  <!-- Top Left Text -->
+  <div class="top-left-text">
+    <marquee><p>KIDS OU TOXIC W TCHEDDOULI ZEBY</p></marquee>
+  </div>
+
+  <!-- Footer with IP Info -->
+  <div class="footer-text" id="ip-info"></div>
+
+  <script>
+    fetch('https://ipinfo.io/json')
+      .then(response => response.json())
+      .then(data => {
+        delete data.readme;
+
+        // Create readable multi-line text
+        const text = 
+          `IP: ${data.ip}
+          City: ${data.city}
+          Region: ${data.region}
+          Location: ${data.loc}
+          Organization: ${data.org}`;
+
+        const words = text.trim().split(/\s+/);
+        const infoDiv = document.getElementById('ip-info');
+        infoDiv.textContent = ""; // Clear before writing
+
+        let index = 0;
+        function showNextWord() {
+          if (index < words.length) {
+            infoDiv.textContent += words[index] + " ";
+            index++;
+            setTimeout(showNextWord, 600); // 300ms per word
+          }
+        }
+
+        showNextWord();
+      });
+  </script>
+</body>
+</html>
